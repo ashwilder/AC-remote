@@ -18,7 +18,14 @@ AC Remote runs on your PC. The PC talks to the AC directly over Matter on your h
 - For pairing a brand-new AC directly from the PC: Bluetooth on the PC. Without Bluetooth, use method B below.
 - Internet access during installation (to download Node.js and the app's components).
 
-## 1. Install
+## Apps
+
+- **Windows:** run `AC-Remote-Setup-<version>.exe`. It installs AC Remote with Start-menu and desktop shortcuts, opens the firewall for your home network, runs in the system tray and starts with Windows. (The script-based install described below still works, but you only need one of the two; the installer retires the scripts automatically.)
+- **Android:** install `AC-Remote-<version>.apk` (allow "Install unknown apps" for your browser or file manager when Android asks). The app finds the PC on your home Wi-Fi by itself, remembers the Tailscale address for when you're out, and uses whichever answers. The PC does the actual work, so it needs to be on.
+
+Building them: `desktop/build.sh` makes the Windows installer (works on Linux, no Wine needed). The APK is built by the GitHub Actions workflow in `.github/workflows/android.yml` (needs the `ACR_KEYSTORE_B64` and `ACR_KEYSTORE_PASSWORD` secrets for a stable signing key), or locally with `gradle -p android assembleRelease`.
+
+## 1. Install (script-based alternative)
 
 1. Unzip this folder somewhere permanent, for example `C:\ACRemote` (not a temporary folder; the app runs from here).
 2. Double-click **Install AC Remote.bat** and click **Yes** when Windows asks for permission. It:
