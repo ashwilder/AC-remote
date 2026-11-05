@@ -1,0 +1,56 @@
+{
+  "appId": "com.vpn.acremote",
+  "productName": "AC Remote",
+  "copyright": "AC Remote",
+  "directories": {
+    "output": "../dist",
+    "buildResources": "desktop"
+  },
+  "files": [
+    "src/**",
+    "public/**",
+    "scripts/**",
+    "desktop/main.cjs",
+    "desktop/loading.html",
+    "desktop/icon.png",
+    "desktop/tray.png",
+    "node_modules/**",
+    "package.json"
+  ],
+  "asar": false,
+  "npmRebuild": false,
+  "nodeGypRebuild": false,
+  "buildDependenciesFromSource": false,
+  "electronVersion": "45.2.3",
+  "afterPack": "desktop/afterPack.cjs",
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "desktop/icon.ico",
+    "signAndEditExecutable": false,
+    "artifactName": "AC-Remote-Setup-${version}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "menuCategory": "AC Remote",
+    "shortcutName": "AC Remote",
+    "runAfterFinish": true,
+    "installerIcon": "desktop/icon.ico",
+    "uninstallerIcon": "desktop/icon.ico",
+    "deleteAppDataOnUninstall": false
+  },
+  "electronLanguages": [
+    "en-US"
+  ]
+}

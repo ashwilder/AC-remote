@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sky">#E3ECFA</color>
+    <color name="screen">#FFFFFF</color>
+    <color name="ink">#15171A</color>
+    <color name="ink2">#6B7079</color>
+    <color name="blue">#4C8DF6</color>
+    <color name="soft">#F6F7F9</color>
+    <color name="line">#ECEEF1</color>
+    <color name="icon_bg">#1F2A33</color>
+</resources>

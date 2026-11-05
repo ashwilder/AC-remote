@@ -1,0 +1,5 @@
+*.bat -text
+*.cmd -text
+*.ps1 -text
+*.vbs -text
+*.nsi -text

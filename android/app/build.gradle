@@ -1,0 +1,47 @@
+plugins {
+    id "com.android.application"
+}
+
+def appVersion = new groovy.json.JsonSlurper().parse(file("../../package.json")).version
+
+android {
+    namespace "com.vpn.acremote"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.vpn.acremote"
+        minSdk 24
+        targetSdk 35
+        versionName appVersion
+        def p = appVersion.tokenize(".").collect { it as int }
+        versionCode p[0] * 10000 + p[1] * 100 + p[2]
+    }
+
+    signingConfigs {
+        release {
+            // Supplied by the build (GitHub Actions secret or the local build script).
+            storeFile System.getenv("ACR_KEYSTORE") ? file(System.getenv("ACR_KEYSTORE")) : null
+            storePassword System.getenv("ACR_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("ACR_KEY_ALIAS") ?: "acremote"
+            keyPassword System.getenv("ACR_KEYSTORE_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig System.getenv("ACR_KEYSTORE") ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    buildFeatures { buildConfig true }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { outputFileName = "AC-Remote-${appVersion}.apk" }
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "ac-remote",
+  "version": "1.1.0",
+  "description": "Control a Matter air conditioner from your PC and phone.",
+  "private": true,
+  "type": "module",
+  "main": "src/server.mjs",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "simulator": "node test/sim-ac.mjs"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "dependencies": {
+    "@matter/main": "0.18.0",
+    "mqtt": "5.16.1"
+  },
+  "optionalDependencies": {
+    "@matter/nodejs-ble": "0.18.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "aedes": "1.2.0",
+    "electron-builder": "26.18.0",
+    "resedit": "3.1.0"
+  }
+}
