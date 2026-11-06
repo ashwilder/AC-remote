@@ -6,6 +6,9 @@ on:
     paths: ["android/**", "package.json", ".github/workflows/android.yml"]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   apk:
     runs-on: ubuntu-latest
@@ -21,24 +24,47 @@ jobs:
         with:
           gradle-version: "8.11.1"
 
+      # Signing key: a repository secret if one is set, otherwise the key kept in android/signing/
+      # (the repository must be private for that).
       - name: Prepare signing key
         env:
           KEYSTORE_B64: ${{ secrets.ACR_KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ACR_KEYSTORE_PASSWORD }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
             echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/acremote.jks"
             echo "ACR_KEYSTORE=$RUNNER_TEMP/acremote.jks" >> "$GITHUB_ENV"
+            echo "ACR_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+          elif [ -f android/signing/acremote.jks ]; then
+            echo "ACR_KEYSTORE=$PWD/android/signing/acremote.jks" >> "$GITHUB_ENV"
+            echo "ACR_KEYSTORE_PASSWORD=$(cat android/signing/password.txt)" >> "$GITHUB_ENV"
           else
-            echo "::warning::No signing key secret; the APK will be signed with a temporary debug key."
+            echo "::warning::No signing key found; the APK is signed with a temporary debug key."
           fi
 
       - name: Build APK
-        env:
-          ACR_KEYSTORE_PASSWORD: ${{ secrets.ACR_KEYSTORE_PASSWORD }}
-        run: gradle -p android assembleRelease --no-daemon
+        run: |
+          set -o pipefail
+          gradle -p android assembleRelease --no-daemon --console=plain 2>&1 | tee "$RUNNER_TEMP/build.log"
 
       - uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: AC-Remote-apk
           path: android/app/build/outputs/apk/release/*.apk
-          if-no-files-found: error
+
+      # Keep the newest APK and build log on the "apk-builds" branch, so they can be downloaded without Actions access.
+      - name: Publish to apk-builds branch
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          cp android/app/build/outputs/apk/release/*.apk "$RUNNER_TEMP/out/" 2>/dev/null || true
+          cp "$RUNNER_TEMP/build.log" "$RUNNER_TEMP/out/build-log.txt" 2>/dev/null || true
+          echo "commit ${GITHUB_SHA} built $(date -u +%FT%TZ) result ${{ job.status }}" > "$RUNNER_TEMP/out/BUILD.txt"
+          cd "$RUNNER_TEMP/out"
+          git init -q -b apk-builds
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "APK build for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}" apk-builds
