@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:lineSpacingExtra="2dp"
-                android:text="The address is in AC Remote on your PC: right-click the tray icon and choose "Use on your phone". Away from home, use the Tailscale address (starts with https://)."
+                android:text="The address is in AC Remote on your PC: right-click the tray icon and choose &quot;Use on your phone&quot;. Away from home, use the Tailscale address (starts with https://)."
                 android:textColor="@color/ink2"
                 android:textSize="13sp" />
         </LinearLayout>
