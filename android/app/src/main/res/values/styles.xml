@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/sky</item>
-        <item name="android:navigationBarColor">@color/screen</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/screen</item>
-        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/sky_gradient</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:textColorHint">@color/ink2</item>
     </style>
 </resources>

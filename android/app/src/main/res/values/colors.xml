@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="sky">#E3ECFA</color>
-    <color name="screen">#FFFFFF</color>
-    <color name="ink">#15171A</color>
-    <color name="ink2">#6B7079</color>
-    <color name="blue">#4C8DF6</color>
-    <color name="soft">#F6F7F9</color>
-    <color name="line">#ECEEF1</color>
+    <!-- Light: light blue and white -->
+    <color name="sky_top">#6BB2FF</color>
+    <color name="sky_mid">#BBDCFF</color>
+    <color name="sky_bottom">#FFFFFF</color>
+    <color name="ink">#0B1B33</color>
+    <color name="ink2">#5C6B80</color>
+    <color name="on_ink">#FFFFFF</color>
+    <color name="glass">#CCFFFFFF</color>
+    <color name="line">#1F0B1B33</color>
+    <color name="accent">#0A84FF</color>
+    <color name="field">#B3FFFFFF</color>
     <color name="icon_bg">#1F2A33</color>
 </resources>

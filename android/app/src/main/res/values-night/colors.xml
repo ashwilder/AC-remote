@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark: dark blue, white and light blue -->
+    <color name="sky_top">#2A63B5</color>
+    <color name="sky_mid">#143866</color>
+    <color name="sky_bottom">#0B1F3F</color>
+    <color name="ink">#FFFFFF</color>
+    <color name="ink2">#B8CCE6</color>
+    <color name="on_ink">#0B2347</color>
+    <color name="glass">#261E4E92</color>
+    <color name="line">#338CC4FF</color>
+    <color name="accent">#6CB8FF</color>
+    <color name="field">#1A8CC4FF</color>
+</resources>

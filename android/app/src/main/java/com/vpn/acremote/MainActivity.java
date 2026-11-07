@@ -4,7 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.net.ConnectivityManager;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
@@ -15,6 +19,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
@@ -59,6 +66,7 @@ public class MainActivity extends Activity {
     private static final String KEY_AWAY = "away_url";
 
     private WebView web;
+    private View root;
     private View panel;
     private TextView title, message;
     private ProgressBar spinner;
@@ -77,6 +85,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        root = findViewById(R.id.root);
+        setUpEdgeToEdge();
 
         web = findViewById(R.id.web);
         panel = findViewById(R.id.panel);
@@ -196,10 +206,91 @@ public class MainActivity extends Activity {
 
         @JavascriptInterface
         public String version() { return BuildConfig.VERSION_NAME; }
+
+        /** The page reports its top and bottom colours so the status and navigation bars blend in. */
+        @JavascriptInterface
+        public void setBars(String top, String bottom, boolean dark) {
+            int t = parseColor(top), b = parseColor(bottom);
+            if (t == 0 || b == 0) return;
+            ui.post(() -> {
+                root.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{t, b}));
+                setBarIcons(dark);
+            });
+        }
+    }
+
+    // ---------- system bars ----------
+    /** Draw behind the status and navigation bars, and pad the content so nothing sits under them. */
+    @SuppressWarnings("deprecation")
+    private void setUpEdgeToEdge() {
+        Window w = getWindow();
+        w.setStatusBarColor(Color.TRANSPARENT);
+        w.setNavigationBarColor(Color.TRANSPARENT);
+        if (Build.VERSION.SDK_INT >= 29) { w.setStatusBarContrastEnforced(false); w.setNavigationBarContrastEnforced(false); }
+        if (Build.VERSION.SDK_INT >= 30) {
+            w.setDecorFitsSystemWindows(false);
+        } else {
+            w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        }
+        root.setOnApplyWindowInsetsListener((v, insets) -> {
+            int l, t, r, b;
+            if (Build.VERSION.SDK_INT >= 30) {
+                android.graphics.Insets i = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.ime() | WindowInsets.Type.displayCutout());
+                l = i.left; t = i.top; r = i.right; b = i.bottom;
+            } else {
+                l = insets.getSystemWindowInsetLeft(); t = insets.getSystemWindowInsetTop();
+                r = insets.getSystemWindowInsetRight(); b = insets.getSystemWindowInsetBottom();
+            }
+            v.setPadding(l, t, r, b);
+            return insets;
+        });
+        setBarIcons(isNight());
+    }
+
+    private boolean isNight() {
+        return (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    /** Dark icons on the light blue page, light icons in dark mode. */
+    @SuppressWarnings("deprecation")
+    private void setBarIcons(boolean dark) {
+        Window w = getWindow();
+        if (Build.VERSION.SDK_INT >= 30) {
+            WindowInsetsController c = w.getInsetsController();
+            if (c == null) return;
+            int light = WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
+            c.setSystemBarsAppearance(dark ? 0 : light, light);
+        } else {
+            View d = w.getDecorView();
+            int f = d.getSystemUiVisibility();
+            int light = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | (Build.VERSION.SDK_INT >= 26 ? View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR : 0);
+            d.setSystemUiVisibility(dark ? (f & ~light) : (f | light));
+        }
+    }
+
+    /** Accepts "#RRGGBB" or "rgb(r, g, b)"; returns 0 when it can't read the colour. */
+    static int parseColor(String s) {
+        if (s == null) return 0;
+        s = s.trim();
+        try {
+            if (s.startsWith("#")) return Color.parseColor(s);
+            if (s.startsWith("rgb")) {
+                String[] p = s.substring(s.indexOf('(') + 1, s.indexOf(')')).split("[,\\s/]+");
+                return Color.rgb(Integer.parseInt(p[0].trim()), Integer.parseInt(p[1].trim()), Integer.parseInt(p[2].trim()));
+            }
+        } catch (Exception ignored) { }
+        return 0;
     }
 
     // ---------- screens ----------
+    private void resetBars() {
+        root.setBackgroundResource(R.drawable.sky_gradient);
+        setBarIcons(isNight());
+    }
+
     private void showBusy(String t, String m) {
+        resetBars();
         web.setVisibility(View.GONE);
         panel.setVisibility(View.VISIBLE);
         title.setText(t);
@@ -210,6 +301,7 @@ public class MainActivity extends Activity {
     }
 
     private void showProblem(String t, String m) {
+        resetBars();
         web.setVisibility(View.GONE);
         panel.setVisibility(View.VISIBLE);
         title.setText(t);

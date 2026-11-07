@@ -30,7 +30,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig System.getenv("ACR_KEYSTORE") ? signingConfigs.release : signingConfigs.debug
+            // Without a key the release APK is left unsigned and signed afterwards with the permanent key.
+            signingConfig System.getenv("ACR_KEYSTORE") ? signingConfigs.release : null
         }
     }
 

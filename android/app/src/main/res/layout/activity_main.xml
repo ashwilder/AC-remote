@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen">
+    android:background="@drawable/sky_gradient">
 
     <WebView
         android:id="@+id/web"
@@ -14,22 +15,35 @@
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/sky_gradient"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="bottom"
             android:orientation="vertical"
             android:paddingLeft="24dp"
-            android:paddingTop="72dp"
+            android:paddingTop="40dp"
             android:paddingRight="24dp"
             android:paddingBottom="32dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AC Remote"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="120dp" />
+
             <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:contentDescription="@null"
                 android:src="@mipmap/ic_launcher" />
 
@@ -40,17 +54,15 @@
                 android:layout_marginTop="16dp"
                 android:text="AC Remote"
                 android:textColor="@color/ink"
-                android:textSize="22sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/message"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
                 android:lineSpacingExtra="3dp"
-                android:maxWidth="340dp"
                 android:textColor="@color/ink2"
                 android:textSize="15sp" />
 
@@ -60,7 +72,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="18dp"
-                android:indeterminateTint="@color/blue" />
+                android:indeterminateTint="@color/accent" />
 
             <LinearLayout
                 android:id="@+id/found"
@@ -72,30 +84,33 @@
             <Button
                 android:id="@+id/btn_retry"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/pill"
+                android:stateListAnimator="@null"
                 android:text="Try again"
                 android:textAllCaps="false"
-                android:textColor="@color/screen"
+                android:textColor="@color/on_ink"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_scan"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/pill_outline"
+                android:stateListAnimator="@null"
                 android:text="Find my PC on this Wi-Fi"
                 android:textAllCaps="false"
                 android:textColor="@color/ink"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="26dp"
                 android:text="Or type your PC's address"
                 android:textColor="@color/ink"
                 android:textSize="15sp"
@@ -104,28 +119,31 @@
             <EditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/field"
                 android:hint="192.168.1.20 or https://your-pc.ts.net"
                 android:imeOptions="actionGo"
                 android:inputType="textUri"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
                 android:singleLine="true"
                 android:textColor="@color/ink"
+                android:textColorHint="@color/ink2"
                 android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btn_connect"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/pill_outline"
+                android:stateListAnimator="@null"
                 android:text="Connect"
                 android:textAllCaps="false"
                 android:textColor="@color/ink"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/help"

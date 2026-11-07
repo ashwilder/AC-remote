@@ -29,6 +29,20 @@ const fmtTemp = t => (t == null ? "--" : Number.isInteger(t) ? String(t) : t.toF
 const hhmm = ms => { const d = new Date(ms); return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
 const speedsOf = d => d.fans.filter(f => f !== "auto" && f !== "off");
 const modesOf = d => MODE_ORDER.filter(m => d.modes.includes(m));
+// Status/navigation bar colours (Android app) and browser theme colour, following the screen.
+const BARS = {
+    light: { on: ["#8CC4FF", "#F7FAFF"], off: ["#A9CFF7", "#F7FAFF"], gate: ["#6BB2FF", "#FFFFFF"] },
+    dark: { on: ["#1E4E92", "#0B1F3F"], off: ["#183F74", "#0B1F3F"], gate: ["#2A63B5", "#0B1F3F"] },
+};
+const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+function syncBars(kind) {
+    syncBars.kind = kind;
+    const dark = darkQuery.matches;
+    const [top, bottom] = BARS[dark ? "dark" : "light"][kind];
+    document.querySelectorAll('meta[name="theme-color"]').forEach(m => (m.content = top));
+    try { window.ACRemoteApp?.setBars?.(top, bottom, dark); } catch { /* older app */ }
+}
+darkQuery.addEventListener?.("change", () => syncBars.kind && syncBars(syncBars.kind));
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 async function api(method, path, body) {
@@ -57,6 +71,7 @@ async function boot() {
         status = await api("GET", "/api/status");
     } catch {
         $("#gate").hidden = false;
+        syncBars("gate");
         $("#gate-title").textContent = "Can't reach your PC";
         $("#gate-help").textContent = "Make sure the PC is on and AC Remote is running, then reload this page.";
         $("#gate-form").hidden = true;
@@ -70,6 +85,7 @@ function showGate() {
     events?.close();
     $("#app").hidden = true;
     $("#gate").hidden = false;
+    syncBars("gate");
     const setup = status.setup;
     $("#gate-form").hidden = setup && !status.canSetup;
     $("#pin2").hidden = !setup;
@@ -158,6 +174,7 @@ function render() {
     if (!d) {
         $("#model").textContent = "";
         document.documentElement.dataset.mode = "off";
+        syncBars("off");
         app.classList.remove("on", "offline");
         return;
     }
@@ -168,6 +185,7 @@ function render() {
     app.classList.toggle("on", on);
     app.classList.toggle("offline", !d.online);
     document.documentElement.dataset.mode = on ? d.mode ?? "cool" : "off";
+    if (syncBars.kind !== (on ? "on" : "off")) syncBars(on ? "on" : "off");
 
     const banner = $("#banner");
     if (!d.online) {
