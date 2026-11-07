@@ -27,7 +27,7 @@ const node = await ServerNode.create({
 
 const endpoint = await node.add(
     RoomAirConditionerDevice.with(
-        ThermostatServer.with("Cooling", "Heating"),
+        process.env.SIM_HEAT ? ThermostatServer.with("Cooling", "Heating") : ThermostatServer.with("Cooling"),
         FanControlServer.with("MultiSpeed", "Auto"),
         TemperatureMeasurementServer,
     ),
@@ -36,18 +36,17 @@ const endpoint = await node.add(
         onOff: { onOff: false },
         thermostat: {
             localTemperature: 2950,
-            controlSequenceOfOperation: Thermostat.ControlSequenceOfOperation.CoolingAndHeating,
+            controlSequenceOfOperation: process.env.SIM_HEAT ? Thermostat.ControlSequenceOfOperation.CoolingAndHeating : Thermostat.ControlSequenceOfOperation.CoolingOnly,
             systemMode: Thermostat.SystemMode.Cool,
             occupiedCoolingSetpoint: 2400,
-            occupiedHeatingSetpoint: 2000,
             minCoolSetpointLimit: 1600,
             maxCoolSetpointLimit: 3000,
-            minHeatSetpointLimit: 1600,
-            maxHeatSetpointLimit: 3000,
             absMinCoolSetpointLimit: 1600,
             absMaxCoolSetpointLimit: 3000,
-            absMinHeatSetpointLimit: 1600,
-            absMaxHeatSetpointLimit: 3000,
+            ...(process.env.SIM_HEAT ? {
+                occupiedHeatingSetpoint: 2000, minHeatSetpointLimit: 1600, maxHeatSetpointLimit: 3000,
+                absMinHeatSetpointLimit: 1600, absMaxHeatSetpointLimit: 3000,
+            } : {}),
         },
         fanControl: {
             fanMode: FanControl.FanMode.Auto,

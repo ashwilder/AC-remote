@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="off">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#E3ECFA">
+<meta name="theme-color" content="#8CC4FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1E4E92" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="AC Remote">
 <title>AC Remote</title>
@@ -14,47 +15,44 @@
 </head>
 <body>
 
-<!-- Icon set, referenced with <use href="#i-..."> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-cool" viewBox="0 0 24 24"><path d="M12 2v20M4.2 6.5l15.6 11M4.2 17.5l15.6-11M9.5 3.5 12 6l2.5-2.5M9.5 20.5 12 18l2.5 2.5M3 9.7l3.4.9-.9 3.4M21 14.3l-3.4-.9.9-3.4M3 14.3l3.4-.9-.9-3.4M21 9.7l-3.4.9.9 3.4"/></symbol>
-  <symbol id="i-heat" viewBox="0 0 24 24"><path d="M4 7c2-1.6 4-1.6 6 0s4 1.6 6 0 3-1.2 4-.6M4 12c2-1.6 4-1.6 6 0s4 1.6 6 0 3-1.2 4-.6M4 17c2-1.6 4-1.6 6 0s4 1.6 6 0 3-1.2 4-.6"/><path d="M17 4.5l3 1.9-1.8 3"/></symbol>
-  <symbol id="i-dry" viewBox="0 0 24 24"><path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/><path d="M19 3.5s-2 2.4-2 3.6a2 2 0 0 0 4 0c0-1.2-2-3.6-2-3.6z"/></symbol>
+  <symbol id="i-cool" viewBox="0 0 24 24"><path d="M12 2.5v19M4.2 7l15.6 10M4.2 17l15.6-10M9.6 4 12 6.4 14.4 4M9.6 20 12 17.6l2.4 2.4M3.2 10.2l3.3.7-.7 3.3M20.8 13.8l-3.3-.7.7-3.3M3.2 13.8l3.3-.7-.7-3.3M20.8 10.2l-3.3.7.7 3.3"/></symbol>
+  <symbol id="i-heat" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-dry" viewBox="0 0 24 24"><path d="M3 8.5h9.5a2.8 2.8 0 1 0-2.8-2.8M3 12.5h14a2.8 2.8 0 1 1-2.8 2.8M3 16.5h6"/><path d="M19.5 3.5s-1.8 2.2-1.8 3.3a1.8 1.8 0 0 0 3.6 0c0-1.1-1.8-3.3-1.8-3.3z"/></symbol>
   <symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6"/><path d="M12 10.4C11 7 11.5 3.5 14 3.5c2.6 0 2.6 3.6-.6 6.6M13.6 12c3.4-1 6.9-.5 6.9 2 0 2.6-3.6 2.6-6.6-.6M12 13.6c1 3.4.5 6.9-2 6.9-2.6 0-2.6-3.6.6-6.6M10.4 12C7 13 3.5 12.5 3.5 10c0-2.6 3.6-2.6 6.6.6"/></symbol>
-  <symbol id="i-auto" viewBox="0 0 24 24"><path d="M7 19 12 5l5 14M8.8 14h6.4"/><path d="M20 8a9 9 0 0 1 0 8M4 16a9 9 0 0 1 0-8"/></symbol>
-  <symbol id="i-temp" viewBox="0 0 24 24"><path d="M10 13.5V5a2 2 0 1 1 4 0v8.5a4 4 0 1 1-4 0z"/><path d="M12 17.5v-6"/></symbol>
-  <symbol id="i-bolt" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M8 3.5v2.5M16 3.5v2.5M12.8 9.5l-2.6 3.5h3.6l-2.6 3.5"/></symbol>
-  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></symbol>
-  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r=".6"/></symbol>
-  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M10 2.5h4M18.4 6.6l1.3-1.3"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24"><path d="M7.5 18.5 12 5.5l4.5 13M9.2 14h5.6"/><path d="M20 8.5a8.5 8.5 0 0 1 0 7M4 15.5a8.5 8.5 0 0 1 0-7"/></symbol>
   <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.4 6.7a8 8 0 1 0 11.2 0"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
   <symbol id="i-gear" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
-  <symbol id="i-powerful" viewBox="0 0 24 24"><path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/></symbol>
+  <symbol id="i-temp" viewBox="0 0 24 24"><path d="M10 13.5V5a2 2 0 1 1 4 0v8.5a4 4 0 1 1-4 0z"/><path d="M12 17.5v-6"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/></symbol>
   <symbol id="i-eco" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19c3-4 6-6.5 9-8"/></symbol>
   <symbol id="i-clean" viewBox="0 0 24 24"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
   <symbol id="i-display" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="11" rx="2"/><path d="M8.5 9.5h1.5v3M13 9.5h2.5v3H13M9 20h6"/></symbol>
   <symbol id="i-nanoe" viewBox="0 0 24 24"><circle cx="6" cy="8" r="1.5"/><circle cx="12" cy="5" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="9" cy="14" r="1.5"/><circle cx="16" cy="16" r="1.5"/><circle cx="7" cy="20" r="1"/><circle cx="13" cy="20" r="1"/></symbol>
-  <symbol id="i-swing" viewBox="0 0 24 24"><path d="M4 5h16v4H4z"/><path d="M8 13l-2 6M12 13v6M16 13l2 6"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></symbol>
   <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-face" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 9.5v1M15 9.5v1M12 9v3.5h-1M9.5 15.5c1.4 1 3.6 1 5 0"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r=".6"/></symbol>
 </svg>
 
 <!-- PIN screens -->
 <main id="gate" class="gate" hidden>
-  <div class="gate-card">
-    <img src="icons/icon-192.png" alt="" width="64" height="64" class="gate-icon">
-    <h1 id="gate-title">AC Remote</h1>
-    <p id="gate-help" class="muted"></p>
+  <p class="brand">AC Remote</p>
+  <div class="gate-body">
+    <svg class="gate-ic"><use href="#i-face"/></svg>
+    <h1 id="gate-title">Enter your PIN</h1>
+    <p id="gate-help" class="gate-help"></p>
     <form id="gate-form" autocomplete="off">
       <label for="pin" class="sr-only">PIN</label>
-      <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="8" minlength="4" autocomplete="current-password" required>
+      <input id="pin" class="pin glass" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" minlength="4" autocomplete="current-password" required>
       <label for="pin2" class="sr-only">Repeat PIN</label>
-      <input id="pin2" inputmode="numeric" pattern="[0-9]*" maxlength="8" minlength="4" placeholder="Repeat PIN" hidden>
-      <button type="submit" class="btn primary" id="gate-btn">Unlock</button>
+      <input id="pin2" class="pin glass" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" minlength="4" placeholder="Repeat PIN" hidden>
+      <button type="submit" class="btn-ink" id="gate-btn">Unlock</button>
       <p id="gate-error" class="error" role="alert"></p>
     </form>
   </div>
@@ -62,151 +60,170 @@
 
 <!-- The remote -->
 <main id="app" class="app" hidden>
-  <section class="panel hero">
-    <header class="top">
-      <button class="circle" id="open-settings" aria-label="Settings"><svg><use href="#i-gear"/></svg></button>
-      <div class="title">
-        <label class="device-pick">
-          <span class="sr-only">Air conditioner</span>
-          <select id="device"></select>
-          <svg class="chev" id="device-chev"><use href="#i-down"/></svg>
-        </label>
-        <span id="status" class="status"></span>
-      </div>
-      <button class="circle" data-open="pair" aria-label="Pair an AC"><svg><use href="#i-plus"/></svg></button>
-    </header>
-
-    <p id="banner" class="banner" role="status" hidden></p>
-
-    <div id="empty" class="empty" hidden>
-      <h2>Pair your air conditioner</h2>
-      <p class="muted">Then switch it on, set the temperature and change the mode from this PC and your phone.</p>
-      <button class="btn primary" data-open="pair">Pair an AC</button>
-      <button class="btn" data-open="settings">Link MirAIe instead</button>
+  <header class="top">
+    <button class="circ ink" id="open-settings" aria-label="Settings"><svg><use href="#i-gear"/></svg></button>
+    <div class="title">
+      <label class="device-pick">
+        <span class="sr-only">Air conditioner</span>
+        <select id="device"></select>
+        <svg class="chev" id="device-chev"><use href="#i-down"/></svg>
+      </label>
+      <p id="model"></p>
     </div>
+    <button class="circ ink" data-open="pair" aria-label="Pair an AC"><svg><use href="#i-plus"/></svg></button>
+  </header>
 
-    <div id="dial-wrap" class="dial-wrap" hidden>
-      <button class="step" id="minus" aria-label="Lower temperature"><svg><use href="#i-minus"/></svg></button>
-      <button class="step" id="plus" aria-label="Raise temperature"><svg><use href="#i-plus"/></svg></button>
-      <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Set temperature" aria-valuemin="16" aria-valuemax="30" aria-valuenow="24">
-        <svg viewBox="0 0 340 200" id="arc" aria-hidden="true"></svg>
-        <div class="dial-center">
-          <span class="chip" id="mode-chip"><svg><use href="#i-cool"/></svg><span>Cold</span></span>
-          <output id="target" class="target">--</output>
-          <span class="dial-caption" id="dial-caption">Temperature</span>
-        </div>
-      </div>
-      <div class="stats" id="stats"></div>
-    </div>
+  <p id="banner" class="banner glass" role="status" hidden></p>
+
+  <section id="empty" class="card glass empty" hidden>
+    <h2>Pair your air conditioner</h2>
+    <p class="muted">Then switch it on, set the temperature and change the mode from this PC and your phone.</p>
+    <button class="btn-ink" data-open="pair">Pair an AC</button>
+    <button class="btn-glass" data-open="settings">Link MirAIe instead</button>
   </section>
 
-  <section class="side" id="side" hidden>
-    <div class="card ac-card">
-      <div class="card-head">
-        <button class="circle small" id="timer-btn" aria-label="Off timer"><svg><use href="#i-timer"/></svg><i class="dot" id="timer-dot" hidden></i></button>
-        <div class="card-title">
-          <strong>Air Conditioner</strong>
-          <span class="muted" id="model"></span>
+  <div class="left" id="left" hidden>
+    <section class="hero">
+      <div class="dialcol">
+        <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Set temperature" aria-valuemin="16" aria-valuemax="30" aria-valuenow="24">
+          <div class="face glass"><output id="target">--</output><span class="cap"><i></i><em id="dial-caption">Off</em></span></div>
+          <svg class="ring" viewBox="0 0 200 200" id="ring" aria-hidden="true"></svg>
         </div>
-        <button class="circle small power" id="power" aria-pressed="false" aria-label="Turn on"><svg><use href="#i-power"/></svg></button>
+        <div class="steps">
+          <button class="circ ink" id="minus" aria-label="Lower temperature"><svg><use href="#i-minus"/></svg></button>
+          <button class="circ ink" id="plus" aria-label="Raise temperature"><svg><use href="#i-plus"/></svg></button>
+        </div>
       </div>
-      <p class="timer-note" id="timer-note" hidden></p>
-
-      <div class="fanbar" id="fanbar">
-        <div class="fan-fill" id="fan-fill"></div>
-        <svg class="fan-icon"><use href="#i-fan"/></svg>
-        <label class="sr-only" for="fan-range">Fan speed</label>
-        <input type="range" id="fan-range" min="0" max="2" step="1" value="0">
-        <button class="fan-auto" id="fan-auto" aria-pressed="false">Auto</button>
-        <span class="fan-label" id="fan-label">Low</span>
+      <div class="unitcol">
+        <svg class="unit" viewBox="0 0 360 160" aria-hidden="true">
+          <defs>
+            <linearGradient id="ub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".72" stop-color="#F2F5F9"/><stop offset="1" stop-color="#E3E9F0"/></linearGradient>
+            <linearGradient id="ul" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EDF1F5"/><stop offset="1" stop-color="#D3DBE4"/></linearGradient>
+            <linearGradient id="uv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCE3EB"/></linearGradient>
+            <linearGradient id="ug" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          </defs>
+          <rect x="6" y="8" width="354" height="100" rx="30" fill="url(#ub)" stroke="#fff" stroke-width="1.2"/>
+          <path d="M6 74 H360 V84 Q360 108 330 108 H36 Q6 108 6 84 Z" fill="url(#ul)"/>
+          <path d="M6 74 H360" stroke="rgba(11,27,51,.06)" stroke-width="1"/>
+          <rect x="34" y="15" width="300" height="6" rx="3" fill="url(#ug)"/>
+          <rect x="28" y="48" width="22" height="6" rx="3" fill="rgba(11,27,51,.07)"/>
+          <rect x="44" y="92" width="304" height="9" rx="4.5" fill="#18222F"/>
+          <g class="vane"><rect x="38" y="89" width="316" height="13" rx="6.5" fill="url(#uv)" stroke="rgba(11,27,51,.07)"/></g>
+          <circle class="led" cx="290" cy="52" r="2.4"/>
+          <text class="digits" id="unit-digits" x="300" y="57"></text>
+          <g class="air">
+            <path d="M70 124 q22 7 44 0 t44 0 t44 0 t44 0 t44 0 t44 0"/>
+            <path d="M90 138 q22 7 44 0 t44 0 t44 0 t44 0 t44 0"/>
+            <path d="M110 152 q22 7 44 0 t44 0 t44 0 t44 0"/>
+          </g>
+        </svg>
+        <div class="pills" id="stats"></div>
       </div>
+    </section>
 
+    <section class="card glass power">
+      <span class="pdisc"><svg><use href="#i-power"/></svg></span>
+      <div class="ptext"><b id="power-title">Power off</b><span id="power-sub"></span></div>
+      <button class="switch" id="power" role="switch" aria-checked="false" aria-label="Power"></button>
+    </section>
+  </div>
+
+  <div class="right" id="right" hidden>
+    <section class="card glass controls">
+      <h3>Mode</h3>
       <div class="modes" id="modes" role="radiogroup" aria-label="Mode"></div>
-    </div>
-
-    <div class="card" id="extras" hidden>
-      <div class="card-row-head">
-        <h3>Panasonic features</h3>
-        <span class="muted small" id="filter-alert" hidden>Clean the filter</span>
+      <div id="speed-block">
+        <div class="sep"></div>
+        <div class="row"><h3 id="speed-h">Speed</h3><button class="chip-sm" id="fan-auto" aria-pressed="false">Auto</button></div>
+        <div class="speed">
+          <svg><use href="#i-fan"/></svg>
+          <input type="range" class="slider" id="fan-range" min="0" max="2" step="1" value="0" aria-labelledby="speed-h">
+          <svg><use href="#i-fan"/></svg>
+        </div>
+        <div class="speedlabels" id="speed-labels"></div>
       </div>
+      <div class="sep"></div>
+      <h3 id="turnoff-h">Turn off</h3>
+      <div class="chips" id="timer-chips" role="group" aria-labelledby="turnoff-h"></div>
+      <div class="swing-row" id="swing-row" hidden>
+        <div class="sep"></div>
+        <label class="row"><h3>Swing</h3><input type="checkbox" class="switch-input" id="swing" role="switch"></label>
+      </div>
+    </section>
+
+    <section class="card glass controls" id="extras" hidden>
+      <div class="row"><h3>Panasonic features</h3><span class="note" id="filter-alert" hidden>Clean the filter</span></div>
       <div class="modes" id="extra-buttons"></div>
-      <div class="selects">
-        <label id="converti-row">Converti7
-          <span class="select-pill"><select id="converti"></select><svg><use href="#i-down"/></svg></span>
-        </label>
-        <label id="swingv-row">Vertical swing
-          <span class="select-pill"><select id="swingv">
-            <option value="0">Auto swing</option><option value="1">Position 1 (top)</option><option value="2">Position 2</option>
-            <option value="3">Position 3</option><option value="4">Position 4</option><option value="5">Position 5 (bottom)</option>
-          </select><svg><use href="#i-down"/></svg></span>
-        </label>
-      </div>
-    </div>
+      <label class="selrow" id="converti-row">Converti7
+        <span class="selpill"><select id="converti"></select><svg><use href="#i-down"/></svg></span>
+      </label>
+      <label class="selrow" id="swingv-row">Vertical swing
+        <span class="selpill"><select id="swingv">
+          <option value="0">Auto swing</option><option value="1">Position 1 (top)</option><option value="2">Position 2</option>
+          <option value="3">Position 3</option><option value="4">Position 4</option><option value="5">Position 5 (bottom)</option>
+        </select><svg><use href="#i-down"/></svg></span>
+      </label>
+    </section>
 
-    <div class="card swing-card" id="swing-card" hidden>
-      <span>Swing</span>
-      <input type="checkbox" id="swing" role="switch" class="switch">
-    </div>
+  </div>
 
-    <div class="presets-head">
-      <h3>Presets</h3>
-      <button class="link-btn" id="new-preset">New preset</button>
-    </div>
+  <section class="presets-wrap" id="presets-wrap" hidden>
+    <div class="sechead"><h2>Presets</h2><button class="link" id="new-preset">New preset</button></div>
     <div class="presets" id="presets"></div>
   </section>
 </main>
 
-<!-- Off timer -->
+<!-- Off timer: other times -->
 <dialog id="timer" class="sheet">
   <form method="dialog" class="sheet-head">
-    <h2>Turn off after</h2>
-    <button class="circle small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <h2>Turn off</h2>
+    <button class="circ glass small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
   </form>
   <p class="muted" id="timer-state"></p>
-  <div class="chips" id="timer-options">
-    <button data-min="30">30 min</button><button data-min="60">1 hour</button><button data-min="120">2 hours</button>
-    <button data-min="240">4 hours</button><button data-min="480">8 hours</button>
+  <div class="chips wrap" id="timer-options">
+    <button class="chip" data-min="30">In 30 min</button><button class="chip" data-min="60">In 1 hour</button><button class="chip" data-min="120">In 2 hours</button>
+    <button class="chip" data-min="240">In 4 hours</button><button class="chip" data-min="480">In 8 hours</button>
   </div>
   <form id="timer-at" class="inline">
-    <label class="grow">Or at a time<input type="time" id="timer-time" required></label>
-    <button class="btn">Set</button>
+    <label class="grow">At a time<input type="time" id="timer-time" required></label>
+    <button class="btn-ink fit">Set</button>
   </form>
-  <button class="btn danger wide" id="timer-cancel" hidden>Cancel timer</button>
+  <button class="btn-glass danger" id="timer-cancel" hidden>Cancel timer</button>
 </dialog>
 
 <!-- Preset editor -->
 <dialog id="preset" class="sheet">
   <form method="dialog" class="sheet-head">
     <h2 id="preset-title">New preset</h2>
-    <button class="circle small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <button class="circ glass small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
   </form>
   <form id="preset-form" class="stack" autocomplete="off">
-    <label>Name<input id="p-name" maxlength="40" placeholder="Sleep" required></label>
+    <label>Name<input id="p-name" maxlength="40" placeholder="Night" required></label>
     <label id="p-device-row">Air conditioner<select id="p-device"></select></label>
-    <fieldset class="fs"><legend>Mode</legend><div class="modes compact" id="p-modes" role="radiogroup" aria-label="Mode"></div></fieldset>
+    <fieldset class="fs"><legend>Mode</legend><div class="modes" id="p-modes" role="radiogroup" aria-label="Mode"></div></fieldset>
     <div class="fs" id="p-temp-row">
       <span class="legend">Temperature</span>
       <div class="stepper">
-        <button type="button" class="circle small" id="p-minus" aria-label="Lower"><svg><use href="#i-minus"/></svg></button>
+        <button type="button" class="circ ink" id="p-minus" aria-label="Lower"><svg><use href="#i-minus"/></svg></button>
         <output id="p-temp">26°</output>
-        <button type="button" class="circle small" id="p-plus" aria-label="Raise"><svg><use href="#i-plus"/></svg></button>
+        <button type="button" class="circ ink" id="p-plus" aria-label="Raise"><svg><use href="#i-plus"/></svg></button>
       </div>
     </div>
-    <fieldset class="fs"><legend>Fan</legend><div class="chips" id="p-fans"></div></fieldset>
-    <label class="switch-row"><span>Swing</span><input type="checkbox" id="p-swing" role="switch" class="switch"></label>
-    <fieldset class="fs" id="p-special-row" hidden><legend>Panasonic mode</legend><div class="chips" id="p-special"></div></fieldset>
+    <fieldset class="fs"><legend>Fan</legend><div class="chips wrap" id="p-fans"></div></fieldset>
+    <label class="row"><span>Swing</span><input type="checkbox" class="switch-input" id="p-swing" role="switch"></label>
+    <fieldset class="fs" id="p-special-row" hidden><legend>Panasonic mode</legend><div class="chips wrap" id="p-special"></div></fieldset>
     <div class="two">
       <label>Start time<input type="time" id="p-start"></label>
       <label>End time<input type="time" id="p-end"></label>
     </div>
     <p class="muted small">The AC switches off at the end time. Leave it empty to keep it running.</p>
     <fieldset class="fs"><legend>Repeat</legend>
-      <div class="chips days" id="p-days"></div>
+      <div class="chips wrap days" id="p-days"></div>
       <label class="check"><input type="checkbox" id="p-once"> Only once</label>
     </fieldset>
-    <label class="switch-row"><span>Start automatically at the start time</span><input type="checkbox" id="p-scheduled" role="switch" class="switch"></label>
-    <button class="btn primary" id="p-save">Save preset</button>
-    <button type="button" class="btn danger wide" id="p-delete" hidden>Delete preset</button>
+    <label class="row"><span>Start automatically at the start time</span><input type="checkbox" class="switch-input" id="p-scheduled" role="switch"></label>
+    <button class="btn-ink" id="p-save">Save preset</button>
+    <button type="button" class="btn-glass danger" id="p-delete" hidden>Delete preset</button>
     <p class="error" id="p-error" role="alert"></p>
   </form>
 </dialog>
@@ -215,7 +232,7 @@
 <dialog id="pair" class="sheet">
   <form method="dialog" class="sheet-head">
     <h2>Pair an AC</h2>
-    <button class="circle small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <button class="circ glass small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
   </form>
   <div class="tabs" role="tablist">
     <button role="tab" id="tab-share" aria-selected="true" aria-controls="pane-share">From a phone app</button>
@@ -234,7 +251,7 @@
       <input id="code" inputmode="numeric" placeholder="1234-567-8901" autocapitalize="off" spellcheck="false" required>
       <small class="muted">The 11-digit code from the sticker on the AC or the code the app gave you.</small>
     </label>
-    <button class="btn primary" id="pair-btn">Pair AC</button>
+    <button class="btn-ink" id="pair-btn">Pair AC</button>
     <p class="error" id="pair-error" role="alert"></p>
     <p class="muted" id="pair-progress" hidden>Pairing. This can take up to two minutes; keep this screen open.</p>
   </form>
@@ -244,17 +261,17 @@
 <dialog id="settings" class="sheet">
   <form method="dialog" class="sheet-head">
     <h2>Settings</h2>
-    <button class="circle small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <button class="circ glass small" aria-label="Close"><svg><use href="#i-close"/></svg></button>
   </form>
 
   <section class="set" id="set-device">
     <h3>This AC</h3>
     <form id="rename-form" class="inline">
       <label class="grow">Name<input id="rename" maxlength="32"></label>
-      <button class="btn">Rename</button>
+      <button class="btn-glass fit">Rename</button>
     </form>
     <p class="muted" id="device-info"></p>
-    <button class="btn danger" id="remove">Remove from AC Remote</button>
+    <button class="btn-glass danger fit" id="remove">Remove from AC Remote</button>
   </section>
 
   <section class="set" id="set-miraie">
@@ -264,26 +281,26 @@
       <form id="mir-form" class="stack" autocomplete="off">
         <label>Mobile number or email<input id="mir-user" autocapitalize="off" spellcheck="false" required></label>
         <label>MirAIe password<input id="mir-pass" type="password" required></label>
-        <button class="btn primary" id="mir-btn">Link MirAIe</button>
+        <button class="btn-ink" id="mir-btn">Link MirAIe</button>
         <p class="error" id="mir-error" role="alert"></p>
       </form>
     </div>
     <div id="mir-on" class="stack" hidden>
       <p class="muted" id="mir-state"></p>
       <div id="mir-links" class="stack"></div>
-      <button class="btn" id="mir-unlink">Unlink MirAIe</button>
+      <button class="btn-glass fit" id="mir-unlink">Unlink MirAIe</button>
     </div>
   </section>
 
   <section class="set" id="set-app" hidden>
     <h3>This phone</h3>
     <p class="muted">The app remembers your PC's home address and its Tailscale address, and uses whichever answers.</p>
-    <button class="btn" id="change-pc">Change PC</button>
+    <button class="btn-glass fit" id="change-pc">Change PC</button>
   </section>
 
   <section class="set">
     <h3>Air conditioners</h3>
-    <button class="btn" data-open="pair">Pair another AC</button>
+    <button class="btn-glass fit" data-open="pair">Pair another AC</button>
   </section>
 
   <section class="set">
@@ -296,13 +313,13 @@
   <section class="set">
     <h3>PIN</h3>
     <form id="pin-form" class="stack" autocomplete="off">
-      <label>Current PIN<input id="pin-cur" inputmode="numeric" maxlength="8" required></label>
-      <label>New PIN<input id="pin-new" inputmode="numeric" maxlength="8" minlength="4" required></label>
+      <label>Current PIN<input id="pin-cur" type="password" inputmode="numeric" maxlength="8" required></label>
+      <label>New PIN<input id="pin-new" type="password" inputmode="numeric" maxlength="8" minlength="4" required></label>
       <label class="check"><input type="checkbox" id="pin-out"> Sign out every other phone and browser</label>
-      <button class="btn">Change PIN</button>
+      <button class="btn-ink">Change PIN</button>
       <p class="error" id="pin-error" role="alert"></p>
     </form>
-    <button class="btn" id="logout">Sign out of this browser</button>
+    <button class="btn-glass fit" id="logout">Sign out of this browser</button>
   </section>
   <p class="muted small" id="version"></p>
 </dialog>

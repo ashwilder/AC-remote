@@ -72,6 +72,7 @@ export class DeviceHub extends EventEmitter {
             return {
                 ...base,
                 roomTemp: m.roomTemp ?? mir?.roomTemp ?? null,
+                room: mir?.room ?? null,
                 swing: m.swing ?? (mir?.extras.swingV != null ? mir.extras.swingV === 0 : null),
                 via: mir ? ["matter", "miraie"] : ["matter"],
                 miraieId: mir?.miraieId ?? null,
@@ -83,7 +84,7 @@ export class DeviceHub extends EventEmitter {
             if (used.has(mir.miraieId)) continue;
             const id = `miraie:${mir.miraieId}`;
             out.push({
-                id, name: mir.name, vendor: mir.vendor, product: mir.product, online: mir.online,
+                id, name: mir.name, room: mir.room ?? null, vendor: mir.vendor, product: mir.product, online: mir.online,
                 power: mir.power, mode: mir.mode, modes: mir.modes, targetTemp: mir.targetTemp, minTemp: mir.minTemp, maxTemp: mir.maxTemp,
                 roomTemp: mir.roomTemp, humidity: null, fan: mir.fan, fans: mir.fans,
                 swing: mir.extras.swingV === null ? null : mir.extras.swingV === 0,
