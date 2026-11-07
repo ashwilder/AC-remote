@@ -7,3 +7,5 @@ dist/
 *.key
 config.json
 miraie.json
+*.jks
+*.idsig
